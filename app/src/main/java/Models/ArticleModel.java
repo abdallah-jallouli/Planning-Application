@@ -3,12 +3,12 @@ package Models;
 public class ArticleModel {
 
     public String nameart , poids ;
-    public int cadence ;
+    public String cadence ;
 
     public ArticleModel() {
     }
 
-    public ArticleModel(String nameart, String poids, int cadence) {
+    public ArticleModel(String nameart, String poids, String cadence) {
         this.nameart = nameart;
         this.poids = poids;
         this.cadence = cadence;
@@ -30,11 +30,11 @@ public class ArticleModel {
         this.poids = poids;
     }
 
-    public int getCadence() {
+    public String getCadence() {
         return cadence;
     }
 
-    public void setCadence(int cadence) {
+    public void setCadence(String cadence) {
         this.cadence = cadence;
     }
 }

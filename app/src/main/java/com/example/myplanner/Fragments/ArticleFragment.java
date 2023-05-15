@@ -16,6 +16,7 @@ import com.example.myplanner.R;
 
 import java.util.ArrayList;
 
+import Controller.ArticleAdapter;
 import Models.ArticleModel;
 
 /**
@@ -36,7 +37,10 @@ public class ArticleFragment extends Fragment {
     private ArrayList<ArticleModel> listItems;
     private String[] nameArticle;
     private String[] poidsArticle;
-    private int[] cadenceAriticle;
+    private String[] cadenceAriticle;
+    RecyclerView recyclerView ;
+
+    RecyclerView.Adapter  adapter ;
 
 
     public ArticleFragment() {
@@ -65,12 +69,10 @@ public class ArticleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RecyclerView recyclerView ;
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -85,6 +87,12 @@ public class ArticleFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         
         dataInitialize();
+        recyclerView = view.findViewById(R.id.articleRV);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        adapter = new ArticleAdapter(getContext(),listItems);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     private void dataInitialize() {
@@ -102,11 +110,11 @@ public class ArticleFragment extends Fragment {
                 getString(R.string.poids_3),
                 getString(R.string.poids_4)
         };
-        cadenceAriticle = new int[]{
-                Integer.parseInt(getString(R.string.cadence_1),
-                Integer.parseInt(getString(R.string.cadence_2),
-                Integer.parseInt(getString(R.string.cadence_3),
-                Integer.parseInt(getString(R.string.cadence_4)
+        cadenceAriticle = new String[]{
+                getString(R.string.cadence_1),
+                getString(R.string.cadence_2),
+                getString(R.string.cadence_3),
+                getString(R.string.cadence_4)
         };
 
         for(int i =0 ; i < nameArticle.length ; i++ )
@@ -114,9 +122,5 @@ public class ArticleFragment extends Fragment {
             ArticleModel articleModel = new ArticleModel(nameArticle[i], poidsArticle[i], cadenceAriticle[i]);
             listItems.add(articleModel);
         }
-
-
-
-
     }
 }

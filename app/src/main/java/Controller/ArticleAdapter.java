@@ -40,7 +40,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         holder.nomart.setText(item.getNameart());
         holder.poidsart.setText(item.getPoids());
         holder.cadence.setText(item.getCadence());
-
     }
 
     @Override
@@ -56,7 +55,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             nomart = itemView.findViewById(R.id.nomart);
             poidsart = itemView.findViewById(R.id.poidsart);
             cadence = itemView.findViewById(R.id.cadenceart);
-
         }
     }
 }
