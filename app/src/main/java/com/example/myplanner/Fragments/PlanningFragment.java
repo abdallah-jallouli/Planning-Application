@@ -2,13 +2,23 @@ package com.example.myplanner.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myplanner.R;
+
+import java.util.ArrayList;
+
+import Controller.ArticleAdapter;
+import Controller.ScheduleAdapter;
+import Models.ScheduleModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +31,14 @@ public class PlanningFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private String[] nameArticle;
+    private String[] poidsArticle;
+    private String[] nbPreparation;
+    private String[] equipeResp;
+    private ArrayList<ScheduleModel> scheduleModels;
+    RecyclerView recyclerView ;
+
+    RecyclerView.Adapter  adapter ;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -62,5 +80,43 @@ public class PlanningFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_planning, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        dataInitialize();
+        recyclerView = view.findViewById(R.id.planningRV);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        adapter = new ScheduleAdapter(getContext(),scheduleModels);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void dataInitialize() {
+        scheduleModels = new ArrayList<>();
+
+        nameArticle = new String[]{
+                getString(R.string.name_1),
+                getString(R.string.name_2),
+                getString(R.string.name_3),
+                getString(R.string.name_4)
+        };
+        poidsArticle = new String[]{
+                getString(R.string.poids_1),
+                getString(R.string.poids_2),
+                getString(R.string.poids_3),
+                getString(R.string.poids_4)
+        };
+        nbPreparation = new String[]{"12", "8","10","4"};
+        equipeResp = new String[]{"1","1", "2","3"};
+
+        for(int i =0 ; i < nameArticle.length ; i++ )
+        {
+            ScheduleModel scheduleModel = new ScheduleModel(nameArticle[i], poidsArticle[i], nbPreparation[i], equipeResp[i]);
+            scheduleModels.add(scheduleModel);
+        }
     }
 }

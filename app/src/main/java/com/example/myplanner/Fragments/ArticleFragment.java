@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,10 @@ import android.view.ViewGroup;
 import com.example.myplanner.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Controller.ArticleAdapter;
+import Controller.DatabaseHandler;
 import Models.ArticleModel;
 
 /**
@@ -34,13 +37,9 @@ public class ArticleFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<ArticleModel> listItems;
-    private String[] nameArticle;
-    private String[] poidsArticle;
-    private String[] cadenceAriticle;
     RecyclerView recyclerView ;
-
-    RecyclerView.Adapter  adapter ;
+    public  static ArticleAdapter adapter;
+    DatabaseHandler db ;
 
 
     public ArticleFragment() {
@@ -85,42 +84,19 @@ public class ArticleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
-        dataInitialize();
+
+        db = new DatabaseHandler(getContext());
         recyclerView = view.findViewById(R.id.articleRV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        adapter = new ArticleAdapter(getContext(),listItems);
+        adapter = new ArticleAdapter(getContext(),db.getAllData());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
-    private void dataInitialize() {
-        listItems = new ArrayList<>();
-
-        nameArticle = new String[]{
-                getString(R.string.name_1),
-                getString(R.string.name_2),
-                getString(R.string.name_3),
-                getString(R.string.name_4)
-        };
-        poidsArticle = new String[]{
-                getString(R.string.poids_1),
-                getString(R.string.poids_2),
-                getString(R.string.poids_3),
-                getString(R.string.poids_4)
-        };
-        cadenceAriticle = new String[]{
-                getString(R.string.cadence_1),
-                getString(R.string.cadence_2),
-                getString(R.string.cadence_3),
-                getString(R.string.cadence_4)
-        };
-
-        for(int i =0 ; i < nameArticle.length ; i++ )
-        {
-            ArticleModel articleModel = new ArticleModel(nameArticle[i], poidsArticle[i], cadenceAriticle[i]);
-            listItems.add(articleModel);
-        }
+    public static void notifyAdapter(){
+        adapter.notifyDataSetChanged();
     }
+
+
 }

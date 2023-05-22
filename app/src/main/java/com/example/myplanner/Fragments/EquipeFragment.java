@@ -1,14 +1,29 @@
 package com.example.myplanner.Fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.myplanner.R;
+
+import java.util.ArrayList;
+
+import Controller.ArticleAdapter;
+import Controller.DatabaseHandler;
+import Models.ArticleModel;
+import Models.ScheduleModel;
+import Models.Team;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +40,9 @@ public class EquipeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private EditText team_name ;
+    private Button btn_add_team , btn_del_team ;
+    DatabaseHandler db ;
 
     public EquipeFragment() {
         // Required empty public constructor
@@ -62,5 +80,36 @@ public class EquipeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_equipe, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        team_name = view.findViewById(R.id.edite_name_team);
+        btn_add_team = view.findViewById(R.id.add_team_btn);
+        btn_del_team = view.findViewById(R.id.delete_team_btn);
+        db = new DatabaseHandler(getActivity());
+
+
+
+        btn_add_team.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String t_name = team_name.getText().toString();
+                db.addTeam(new Team(t_name));
+//                if (id == -1)
+//                Toast.makeText(getContext(), "Team Not Added ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btn_del_team.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String t_name1 =team_name.getText().toString();
+                db.deleteTeam(t_name1);
+            }
+        });
+
+
     }
 }

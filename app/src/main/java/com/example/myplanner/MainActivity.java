@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myplanner.Fragments.EquipeFragment;
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         continuebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(MainActivity.this , Operator.class);
-                //startActivity(intent);
+
             }
         });
 
