@@ -7,6 +7,14 @@ public class Team {
     public String t_name;
     List<Employee> employees ;
 
+    public Team() {
+    }
+
+    public Team(int t_id, String t_name) {
+        this.t_id = t_id;
+        this.t_name = t_name;
+    }
+
     public Team(String t_name) {
         this.t_name = t_name;
     }

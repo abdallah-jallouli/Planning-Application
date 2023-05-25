@@ -1,12 +1,15 @@
 package com.example.myplanner.Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +18,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myplanner.AddEmployee;
 import com.example.myplanner.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 import Controller.ArticleAdapter;
 import Controller.DatabaseHandler;
+import Controller.EmployeeAdapter;
 import Models.ArticleModel;
+import Models.Employee;
 import Models.ScheduleModel;
 import Models.Team;
 
@@ -37,11 +44,15 @@ public class EquipeFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+
+
     private String mParam1;
     private String mParam2;
     private EditText team_name ;
     private Button btn_add_team , btn_del_team ;
+    private FloatingActionButton e_fab , e_refresh;
+    private RecyclerView e_recyclerView ;
+    public  static EmployeeAdapter e_adapter;
     DatabaseHandler db ;
 
     public EquipeFragment() {
@@ -66,6 +77,10 @@ public class EquipeFragment extends Fragment {
         return fragment;
     }
 
+    public static void notifyAdapter() {
+        e_adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +103,12 @@ public class EquipeFragment extends Fragment {
         team_name = view.findViewById(R.id.edite_name_team);
         btn_add_team = view.findViewById(R.id.add_team_btn);
         btn_del_team = view.findViewById(R.id.delete_team_btn);
+        e_fab =view.findViewById(R.id.fab_emp);
         db = new DatabaseHandler(getActivity());
+
+
+
+
 
 
 
@@ -110,6 +130,22 @@ public class EquipeFragment extends Fragment {
             }
         });
 
+        e_fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddEmployee.class);
+                startActivity(intent);
+            }
+        });
+
+        db = new DatabaseHandler(getContext());
+        e_recyclerView = view.findViewById(R.id.equ_rv);
+        e_recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        e_recyclerView.setHasFixedSize(true);
+        e_adapter = new EmployeeAdapter(getContext(),db.getAllEmployee(),db);
+        e_recyclerView.setAdapter(e_adapter);
+        e_adapter.notifyDataSetChanged();
 
     }
+
 }

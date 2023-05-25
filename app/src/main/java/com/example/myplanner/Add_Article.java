@@ -3,18 +3,14 @@ package com.example.myplanner;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.myplanner.Fragments.ArticleFragment;
 
@@ -37,12 +33,12 @@ public class Add_Article extends AppCompatActivity {
         setContentView(R.layout.activity_add_article);
 
         db = new DatabaseHandler(this);
-        name = findViewById(R.id.edit_name);
-        weight = findViewById(R.id.edit_weight);
-        cadence = findViewById(R.id.edit_cad);
-        image_btn = findViewById(R.id.addImagebtn);
-        save_btn = findViewById(R.id.savebtn);
-        imageView = findViewById(R.id.article_image);
+        name = findViewById(R.id.edit_name1);
+        weight = findViewById(R.id.edit_weight1);
+        cadence = findViewById(R.id.edit_cad1);
+        image_btn = findViewById(R.id.addImagebtn1);
+        save_btn = findViewById(R.id.savebtn1);
+        imageView = findViewById(R.id.article_image1);
 
 
     // Path into gallery
@@ -72,7 +68,7 @@ public class Add_Article extends AppCompatActivity {
                 byte[] imageBytes = getBytesFromBitmap(bitmap);
 
                 int id = db.addArticle(new ArticleModel(name_art,weight_art,cadence_art,imageBytes));
-                Intent intent = new Intent(Add_Article.this, ArticleFragment.class);
+                Intent intent = new Intent(Add_Article.this, Interface_Chef.class);
                 startActivity(intent);
                 //Toast.makeText(Add_Article.this, "Successfull", Toast.LENGTH_SHORT).show();
                 finish();

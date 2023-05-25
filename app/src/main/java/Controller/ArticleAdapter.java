@@ -1,7 +1,9 @@
 package Controller;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myplanner.EditArticle;
 import com.example.myplanner.Fragments.ArticleFragment;
 import com.example.myplanner.R;
 
@@ -25,6 +28,7 @@ import Models.ArticleModel;
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
     private Context context;
+    private Activity activity ;
     private List<ArticleModel> listitems;
     private DatabaseHandler databaseHandler ;
 
@@ -32,7 +36,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         this.context = context;
         this.listitems = listitem;
     }
-    public ArticleAdapter(Context context, List<ArticleModel> list, DatabaseHandler databaseHandler) {
+    public ArticleAdapter( Context context, List<ArticleModel> list, DatabaseHandler databaseHandler) {
         this.context = context;
         listitems = list;
         this.databaseHandler = databaseHandler;
@@ -73,6 +77,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                 //Toast.makeText(context , String.valueOf(articleID),Toast.LENGTH_LONG).show();
             }
         });
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(context , String.valueOf(article.getId_art()),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context.getApplicationContext(), EditArticle.class);
+                intent.putExtra("position",String.valueOf(article.getId_art()));
+//                activity.startActivityForResult(intent , 1);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -84,7 +98,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         private TextView name , weight , cadence ;
         private ImageView image;
-        private ImageButton delete ;
+        private ImageButton delete , edit ;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.nomart);
@@ -92,6 +106,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             cadence = itemView.findViewById(R.id.cadenceart);
             image = itemView.findViewById(R.id.imageart);
             delete = itemView.findViewById(R.id.delete_btn);
+            edit = itemView.findViewById(R.id.a_edit_btn);
         }
     }
 

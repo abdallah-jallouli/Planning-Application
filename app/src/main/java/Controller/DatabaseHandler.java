@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Models.ArticleModel;
+import Models.Employee;
 import Models.Team;
 import Utils.Utils;
 
@@ -115,9 +116,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public  ArticleModel getArticle(int id){
         SQLiteDatabase db = this.getReadableDatabase() ;
         Cursor cursor = db.query(Utils.TABLE_NAME_ARTICLE ,
-                new String[]{Utils.ARTICLE_KEY_ID,Utils.TABLE_NAME_ARTICLE,
+                new String[]{Utils.ARTICLE_KEY_ID,
+                        Utils.ARTICLE_KEY_NAME,
                         Utils.ARTICLE_KEY_WEIGHT,
-                        Utils.ARTICLE_KEY_CADENCE},
+                        Utils.ARTICLE_KEY_CADENCE,
+                        Utils.ARTICLE_KEY_IMAGE},
                 Utils.ARTICLE_KEY_ID + "=?",new String[]{String.valueOf(id)},
                 null,null,null,null);
 
@@ -140,13 +143,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         contentValues.put(Utils.ARTICLE_KEY_NAME , article.getName_art());
         contentValues.put(Utils.ARTICLE_KEY_WEIGHT , article.getWeight_art());
         contentValues.put(Utils.ARTICLE_KEY_CADENCE , article.getCadence_art());
-        contentValues.put(Utils.ARTICLE_KEY_IMAGE , String.valueOf(article.getImage_art()) );
+        contentValues.put(Utils.ARTICLE_KEY_IMAGE , article.getImage_art() );
 
         int result = db.update(Utils.TABLE_NAME_ARTICLE , contentValues,Utils.ARTICLE_KEY_ID + "=?",
                 new String[]{ String.valueOf(article.getId_art())});
         db.close();
-        return result;
 
+        return result;
     }
 
     //********************* Delete Article **********************//
@@ -170,7 +173,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // cursor.close();
         return cursor.getCount();
-
     }
     //*************************************************************************//
     //********************* Insert data into team table **********************//
@@ -187,13 +189,158 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    //********************* get Team using id **********************//
+
+    public Team getTeamObjectById(int teamId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+//        String query = "SELECT * FROM " + Utils.TABLE_NAME_TEAM +
+//                " WHERE " + Utils.TEAM_KEY_ID + " = " + teamId;
+
+        Cursor cursor = db.query(Utils.TABLE_NAME_TEAM,
+                new String[]{Utils.TEAM_KEY_ID,
+                        Utils.TEAM_KEY_NAME},
+                Utils.TEAM_KEY_ID + "=?", new String[]{String.valueOf(teamId)},
+                null,null,null,null);
+        Team team = null;
+
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(Utils.TEAM_KEY_ID));
+            String teamName = cursor.getString(cursor.getColumnIndexOrThrow(Utils.TEAM_KEY_NAME));
+
+            // Create a new Team object
+            team = new Team(id,teamName);
+        }
+
+        cursor.close();
+        return team;
+    }
+
+
+
+
     //********************* Delete Team **********************//
 
     public  void deleteTeam(String  teamName){
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Utils.TABLE_NAME_TEAM, Utils.TEAM_KEY_NAME + "=?", new String[]{String.valueOf(teamName)});
+        db.delete(Utils.TABLE_NAME_TEAM, Utils.TEAM_KEY_NAME  +"=?", new String[]{String.valueOf(teamName)});
         db.close();
+    }
+
+    //********************* Get all Team data *********************//
+
+    @SuppressLint("Range")
+    public List<Team> getAllTeam() {
+        List<Team> allTeam = new ArrayList<>();
+        String query = "SELECT * FROM "+ Utils.TABLE_NAME_TEAM;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery( query ,null);
+        if(cursor.moveToFirst())
+            do{
+                Team team = new Team();
+                team.setT_id(cursor.getInt(cursor.getColumnIndex(Utils.TEAM_KEY_ID)));
+                team.setT_name( cursor.getString(cursor.getColumnIndex(Utils.TEAM_KEY_NAME)));
+
+                allTeam.add(team);
+
+            }while (cursor.moveToNext());
+        db.close();
+        cursor.close();
+        return allTeam;
+    }
+
+    //*************************************************************************//
+    //********************* Insert data into Employee table **********************//
+
+    public void addEmployee(Employee employee){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        //contentValues.put(Utils.TEAM_KEY_ID , team.getT_id());
+        contentValues.put(Utils.EMPLOYEE_KEY_NAME , employee.getE_name());
+        contentValues.put(Utils.EMPLOYEE_KEY_FIRST_NAME , employee.getE_first_name());
+        contentValues.put(Utils.EMPLOYEE_KEY_PHONE , employee.getE_phone_number());
+        contentValues.put(Utils.EMPLOYEE_KEY_TEAM_ID, employee.getTeam().getT_id());
+
+        //int id = (int) db.insert(Utils.TABLE_NAME_TEAM , null,contentValues);
+        long teamId = db.insert(Utils.TABLE_NAME_EMPLOYEE, null, contentValues);
+        employee.setE_id((int) teamId);
+        db.close();
+    }
+
+    //********************* Update Employee **********************//
+
+    public  int updateEmployee(Employee employee){
+        SQLiteDatabase db = this.getWritableDatabase() ;
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Utils.EMPLOYEE_KEY_NAME , employee.getE_name());
+        contentValues.put(Utils.EMPLOYEE_KEY_FIRST_NAME , employee.getE_first_name());
+        contentValues.put(Utils.EMPLOYEE_KEY_PHONE , employee.getE_phone_number());
+        contentValues.put(Utils.EMPLOYEE_KEY_TEAM_ID , employee.getTeam().getT_id() );
+
+        int result = db.update(Utils.TABLE_NAME_EMPLOYEE , contentValues,Utils.EMPLOYEE_KEY_ID + "=?",
+                new String[]{ String.valueOf(employee.getE_id())});
+        db.close();
+
+        return result;
+    }
+
+    //********************* Delete Employee **********************//
+
+    public  void deleteEmployee(int  emp_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Utils.TABLE_NAME_EMPLOYEE,  Utils.EMPLOYEE_KEY_ID +"=?", new String[]{String.valueOf(emp_id)});
+        db.close();
+    }
+    //********************* Get all Employee data *********************//
+
+    @SuppressLint("Range")
+    public List<Employee> getAllEmployee() {
+        Team team = new Team() ;
+        List<Employee> allEmployee = new ArrayList<>();
+        String query = "SELECT * FROM "+ Utils.TABLE_NAME_EMPLOYEE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery( query ,null);
+        if(cursor.moveToFirst())
+            do{
+                Employee employee = new Employee();
+                employee.setE_id(cursor.getInt(cursor.getColumnIndex(Utils.EMPLOYEE_KEY_ID)));
+                employee.setE_name( cursor.getString(cursor.getColumnIndex(Utils.EMPLOYEE_KEY_NAME)));
+                employee.setE_first_name( cursor.getString(cursor.getColumnIndex(Utils.EMPLOYEE_KEY_FIRST_NAME)));
+                employee.setE_phone_number( cursor.getString(cursor.getColumnIndex(Utils.EMPLOYEE_KEY_PHONE)));
+                int team_id = cursor.getInt(cursor.getColumnIndex(Utils.EMPLOYEE_KEY_TEAM_ID));
+                team = getTeamObjectById(team_id);
+                employee.setTeam(team);
+
+                allEmployee.add(employee);
+
+            }while (cursor.moveToNext());
+        db.close();
+        cursor.close();
+        return allEmployee;
+    }
+
+    //********************* Get employee using id **********************//
+
+    public  Employee getEmployee(int id_emp){
+        SQLiteDatabase db = this.getReadableDatabase() ;
+        Cursor cursor = db.query(Utils.TABLE_NAME_EMPLOYEE ,
+                new String[]{Utils.EMPLOYEE_KEY_ID,
+                        Utils.EMPLOYEE_KEY_NAME,
+                        Utils.EMPLOYEE_KEY_FIRST_NAME,
+                        Utils.EMPLOYEE_KEY_PHONE,
+                        Utils.EMPLOYEE_KEY_TEAM_ID},
+                Utils.EMPLOYEE_KEY_ID + "=?",new String[]{String.valueOf(id_emp)},
+                null,null,null,null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+        Employee employee = new Employee(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1),cursor.getString(2)
+                ,cursor.getString(3)
+                ,getTeamObjectById(Integer.parseInt(cursor.getString(4))));
+        cursor.close();
+        return employee;
     }
 
 

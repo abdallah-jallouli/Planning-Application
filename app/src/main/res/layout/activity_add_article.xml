@@ -6,24 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".Add_Article">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Article "
-        android:textSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.067" />
-
     <EditText
-        android:id="@+id/edit_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/edit_name1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="100sp"
         android:ems="10"
         android:hint="Name"
         android:inputType="text"
@@ -33,65 +22,75 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edit_weight"
-        android:layout_width="206dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="60dp"
+        android:id="@+id/edit_weight1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="40sp"
         android:ems="10"
         android:hint="Weight"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_name" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_name1" />
 
     <EditText
-        android:id="@+id/edit_cad"
-        android:layout_width="wrap_content"
+        android:id="@+id/edit_cad1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="40sp"
         android:ems="10"
         android:hint="Cadence"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_weight" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_weight1" />
 
     <Button
-        android:id="@+id/addImagebtn"
-        android:layout_width="wrap_content"
+        android:id="@+id/addImagebtn1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20sp"
         android:layout_marginTop="60dp"
+        android:layout_marginEnd="20sp"
         android:text="Select Image"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_cad"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_cad1"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_goneMarginTop="40sp" />
 
     <Button
-        android:id="@+id/savebtn"
-        android:layout_width="wrap_content"
+        android:id="@+id/savebtn1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="60sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="60sp"
         android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addImagebtn" />
+        app:layout_constraintTop_toBottomOf="@+id/article_image1" />
 
     <ImageView
-        android:id="@+id/article_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/article_image1"
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        android:layout_marginTop="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.791"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.719"
+        app:layout_constraintTop_toBottomOf="@+id/addImagebtn1"
+        app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

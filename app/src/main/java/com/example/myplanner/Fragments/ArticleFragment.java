@@ -1,10 +1,12 @@
 package com.example.myplanner.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myplanner.AddEmployee;
+import com.example.myplanner.Add_Article;
+import com.example.myplanner.EditArticle;
 import com.example.myplanner.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +27,7 @@ import java.util.List;
 import Controller.ArticleAdapter;
 import Controller.DatabaseHandler;
 import Models.ArticleModel;
+import Models.Team;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +47,7 @@ public class ArticleFragment extends Fragment {
     RecyclerView recyclerView ;
     public  static ArticleAdapter adapter;
     DatabaseHandler db ;
+
 
 
     public ArticleFragment() {
@@ -84,15 +92,31 @@ public class ArticleFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FloatingActionButton fab_act ;
+        fab_act = view.findViewById(R.id.fab);
 
         db = new DatabaseHandler(getContext());
         recyclerView = view.findViewById(R.id.articleRV);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
-        adapter = new ArticleAdapter(getContext(),db.getAllData());
+        adapter = new ArticleAdapter(getContext(),db.getAllData(),db);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+
+        fab_act.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Team team = new Team();
+//                team = db.getTeamObjectById(5);
+//                Log.d ("Team name :" , team.t_name);
+//                Log.d ("Team id :" , String.valueOf(team.t_id));
+                Intent intent = new Intent(getContext(), Add_Article.class);
+                startActivity(intent);
+            }
+        });
     }
+
 
     public static void notifyAdapter(){
         adapter.notifyDataSetChanged();

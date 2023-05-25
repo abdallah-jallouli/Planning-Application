@@ -5,16 +5,24 @@ public class Employee {
     public String e_name;
     public String e_first_name;
     public String e_phone_number;
-    public String e_position;
     public Team team;
 
 
-    public Employee(int e_id, String e_name, String e_first_name, String e_phone_number, String e_position, Team team) {
+    public Employee() {
+    }
+
+    public Employee(String e_name, String e_first_name, String e_phone_number, Team team) {
+        this.e_name = e_name;
+        this.e_first_name = e_first_name;
+        this.e_phone_number = e_phone_number;
+        this.team = team;
+    }
+
+    public Employee(int e_id, String e_name, String e_first_name, String e_phone_number, Team team) {
         this.e_id = e_id;
         this.e_name = e_name;
         this.e_first_name = e_first_name;
         this.e_phone_number = e_phone_number;
-        this.e_position = e_position;
         this.team = team;
     }
 
@@ -48,14 +56,6 @@ public class Employee {
 
     public void setE_phone_number(String e_phone_number) {
         this.e_phone_number = e_phone_number;
-    }
-
-    public String getE_position() {
-        return e_position;
-    }
-
-    public void setE_position(String e_position) {
-        this.e_position = e_position;
     }
 
     public Team getTeam() {
