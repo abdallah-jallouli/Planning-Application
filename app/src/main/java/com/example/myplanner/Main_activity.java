@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
-import com.example.myplanner.Fragments.EquipeFragment;
+import com.example.myplanner.Fragments.ProductFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -17,19 +17,19 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myplanner.databinding.ActivityInterfaceArticleBinding;
+import com.example.myplanner.databinding.ActivityAddProductBinding;
 
 public class Interface_Chef extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityInterfaceArticleBinding binding;
+    private ActivityAddProductBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityInterfaceArticleBinding.inflate(getLayoutInflater());
+        binding = ActivityAddProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarInterfaceArticle.toolbar);
@@ -38,7 +38,7 @@ public class Interface_Chef extends AppCompatActivity {
 //            public void onClick(View view) {
 ////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 ////                        .setAction("Action", null).show();
-//                Intent intent = new Intent(Interface_Chef.this , Add_Article.class);
+//                Intent intent = new Intent(Interface_Chef.this , AddProduct.class);
 //                startActivity(intent);
 //            }
 //        });

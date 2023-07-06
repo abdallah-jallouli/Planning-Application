@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddDailyProduct">
+
+    <Spinner
+        android:id="@+id/s_spin_art"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/s_spin_team"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_marginTop="100sp"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/s_spin_art" />
+
+    <EditText
+        android:id="@+id/s_numb_prep"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_marginTop="100sp"
+        android:layout_marginStart="20sp"
+        android:layout_marginEnd="20sp"
+        android:hint="Number of Preparation"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/s_spin_team" />
+
+    <Button
+        android:id="@+id/s_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60sp"
+        android:layout_marginEnd="60sp"
+        android:layout_marginTop="100sp"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/s_numb_prep" />
+</androidx.constraintlayout.widget.ConstraintLayout>

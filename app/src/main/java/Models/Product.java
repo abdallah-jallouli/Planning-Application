@@ -1,15 +1,15 @@
 package Models;
 
-public class ArticleModel {
+public class ProductModel {
 
     public String name_art ;
     public int id_art , cadence_art, weight_art ;
     public byte[] image_art ;
 
-    public ArticleModel() {
+    public ProductModel() {
     }
 
-    public ArticleModel(int id_art,String name_art, int weight_art ,int cadence_art,byte[] image_art) {
+    public ProductModel(int id_art, String name_art, int weight_art , int cadence_art, byte[] image_art) {
         this.name_art = name_art;
         this.image_art = image_art;
         this.id_art = id_art;
@@ -17,7 +17,7 @@ public class ArticleModel {
         this.weight_art = weight_art;
     }
 
-    public ArticleModel(String name_art, int weight_art ,int cadence_art,byte[] image_art) {
+    public ProductModel(String name_art, int weight_art , int cadence_art, byte[] image_art) {
         this.name_art = name_art;
         this.image_art = image_art;
         this.cadence_art = cadence_art;

@@ -23,36 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_refresh" />
 
-        <Button
-            android:id="@+id/delete_team_btn"
-            android:layout_width="146dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:text="Delete team"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edite_name_team" />
-
-        <EditText
-            android:id="@+id/edite_name_team"
-            android:layout_width="334dp"
-            android:layout_height="56dp"
-            android:ems="10"
-            android:hint="Team Name "
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/add_team_btn"
-            android:layout_width="149dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Add team"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edite_name_team" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/equ_rv"
             android:layout_width="match_parent"
@@ -61,7 +31,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_team_btn" />
+            tools:layout_editor_absoluteY="163dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
